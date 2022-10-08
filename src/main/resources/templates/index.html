@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Home - keepNotes</title>
+    <link th:rel="stylesheet"
+          th:href="@{/webjars/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.css}"/>
+    <link th:rel="stylesheet"
+          th:href="@{/webjars/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.standalone.css}"/>
+    <link th:rel="stylesheet"
+          th:href="@{/webjars/bootstrap/5.2.0/css/bootstrap.min.css}"/>
+</head>
+<body>
+<div class="container text-center">
+    <div>
+        <h1>Welcome to KeepNotes Home</h1>
+    </div>
+    <div>
+        <h3>
+            <a th:href="@{/list_users}">List All Users</a>
+            <br>
+            <a th:href="@{/register}">Register</a>
+            <br>
+            <a th:href="@{/login}">Login</a>
+        </h3>
+    </div>
+</div>
+</body>
+</html>
