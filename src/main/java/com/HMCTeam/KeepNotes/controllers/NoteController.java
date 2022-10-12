@@ -2,15 +2,18 @@ package com.HMCTeam.KeepNotes.controllers;
 
 
 import com.HMCTeam.KeepNotes.models.Note;
+import com.HMCTeam.KeepNotes.models.User;
 import com.HMCTeam.KeepNotes.services.NoteService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.time.LocalDate;
 import java.util.List;
 
 @RestController
-@RequestMapping("api/v1")
+@RequestMapping("")
 public class NoteController {
 
     @Autowired
@@ -19,6 +22,7 @@ public class NoteController {
     //     save or create
     @PostMapping("/notes")
     public Note saveNote(@Valid @RequestBody Note note) {
+        note.setCreationDate(LocalDate.now());
         return noteService.saveNote(note);
     }
 
@@ -47,5 +51,6 @@ public class NoteController {
         noteService.deleteNote(id);
         return "Deleted Successfully";
     }
+
 
 }

@@ -1,6 +1,8 @@
 package com.HMCTeam.KeepNotes;
 
 import com.HMCTeam.KeepNotes.models.User;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -9,6 +11,7 @@ import java.util.Collection;
 public class CustomUserDetails implements UserDetails {
 
     private User user;
+
 
     public CustomUserDetails(User user) {
         this.user = user;
@@ -48,4 +51,6 @@ public class CustomUserDetails implements UserDetails {
     public boolean isEnabled() {
         return true;
     }
+
+
 }

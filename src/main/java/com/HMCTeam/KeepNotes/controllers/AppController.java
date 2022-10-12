@@ -1,16 +1,18 @@
 package com.HMCTeam.KeepNotes.controllers;
 
+import com.HMCTeam.KeepNotes.models.Note;
 import com.HMCTeam.KeepNotes.models.User;
 import com.HMCTeam.KeepNotes.repositories.UserRepository;
+import com.HMCTeam.KeepNotes.services.NoteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
+
 
 import java.util.List;
+
 
 @Controller
 @RequestMapping(value = "")
@@ -18,6 +20,9 @@ public class AppController {
 
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private NoteService noteService;
 
     @GetMapping("")
     public String viewHomePage() {
@@ -47,5 +52,14 @@ public class AppController {
 
         return "users";
     }
+
+    @GetMapping("/list_notes")
+    public String viewUserNotes(Model model) {
+        List<Note> userNotes = noteService.getNotes();
+        model.addAttribute("userNotes", userNotes);
+
+        return "notes";
+    }
+
 
 }

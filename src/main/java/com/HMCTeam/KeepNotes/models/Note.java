@@ -9,7 +9,7 @@ public class Note {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "note_id")
-    private Long NoteId;
+    private Long noteId;
     private String title;
     private String content;
     @Column(name = "creation_date")
@@ -40,11 +40,11 @@ public class Note {
     }
 
     public Long getNoteId() {
-        return NoteId;
+        return noteId;
     }
 
     public void setNoteId(Long noteId) {
-        NoteId = noteId;
+        this.noteId = noteId;
     }
 
     public String getTitle() {

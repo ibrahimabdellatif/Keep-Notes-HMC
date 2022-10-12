@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <title>user notes - keepNotes</title>
+    <link th:rel="stylesheet"
+          th:href="@{/webjars/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.css}"/>
+    <link th:rel="stylesheet"
+          th:href="@{/webjars/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.standalone.css}"/>
+    <link th:rel="stylesheet"
+          th:href="@{/webjars/bootstrap/5.2.0/css/bootstrap.min.css}"/>
+</head>
+<body>
+<div class="container text-center">
+    <div>
+        <h1>List of All User Notes</h1>
+    </div>
+
+    <div>
+        <table class="table table-striped table-bordered">
+            <thead class="thead-dark">
+            <th>Note ID</th>
+            <th>Title</th>
+            <th>Note Content</th>
+            <th>Creation Date</th>
+            </thead>
+            <tbody>
+            <tr th:each="note: ${userNotes}">
+                <td th:text="${note.noteId}">Note ID</td>
+                <td th:text="${note.title}">Title</td>
+                <td th:text="${note.content}">Content</td>
+                <td th:text="${note.creationDate}">Creation date</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+</div>
+</body>
+</html>
