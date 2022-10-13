@@ -22,7 +22,7 @@ public class Note {
     private User user;
 
     @OneToMany(mappedBy = "note")
-    private List<Attachments> list;
+    private List<Attachment> list;
 
     public Note() {
     }
@@ -32,11 +32,11 @@ public class Note {
         this.content = content;
         this.user = user;
     }
-    public List<Attachments> getList() {
+    public List<Attachment> getList() {
         return list;
     }
 
-    public void setList(List<Attachments> list) {
+    public void setList(List<Attachment> list) {
         this.list = list;
     }
 

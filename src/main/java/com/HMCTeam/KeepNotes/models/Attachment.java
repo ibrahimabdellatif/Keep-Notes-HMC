@@ -9,12 +9,11 @@ import javax.persistence.*;
 @Entity(name = "attachment")
 @NoArgsConstructor
 @Data
-public class Attachments {
+public class Attachment {
     @Id
-    @GeneratedValue(generator = "uuid")
-    @GenericGenerator(name = "uuid", strategy = "uuid2")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "attachment_id")
-    private String id;
+    private Long id;
 
     @Column(name = "attachment_name")
     private String name;
@@ -27,7 +26,7 @@ public class Attachments {
     private byte[] data;
 
 
-    public Attachments(String name, String type, byte[] data) {
+    public Attachment(String name, String type, byte[] data) {
         this.name = name;
         this.type = type;
         this.data = data;
