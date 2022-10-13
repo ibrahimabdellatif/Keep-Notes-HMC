@@ -1,4 +1,4 @@
-package com.HMCTeam.KeepNotes;
+package com.HMCTeam.KeepNotes.util;
 
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 

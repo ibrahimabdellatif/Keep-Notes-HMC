@@ -15,6 +15,7 @@ public class Note {
     @Column(name = "creation_date")
     private LocalDate creationDate;
 
+
     @ManyToOne
 //    @JsonIgnore
     @JoinColumn(name = "user_id", nullable = false)
@@ -23,6 +24,14 @@ public class Note {
     @OneToMany(mappedBy = "note")
     private List<Attachments> list;
 
+    public Note() {
+    }
+
+    public Note(String title, String content, User user) {
+        this.title = title;
+        this.content = content;
+        this.user = user;
+    }
     public List<Attachments> getList() {
         return list;
     }

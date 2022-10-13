@@ -1,6 +1,7 @@
 package com.HMCTeam.KeepNotes.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
 import java.util.List;
@@ -30,6 +31,13 @@ public class User {
     @OneToMany(mappedBy = "user")
     @JsonIgnore
     private List<Note> list;
+
+    public User() {
+    }
+
+    public User(User user) {
+
+    }
 
     public List<Note> getList() {
         return list;
@@ -78,4 +86,6 @@ public class User {
     public void setPassword(String password) {
         this.password = password;
     }
+
+
 }

@@ -5,6 +5,8 @@ import com.HMCTeam.KeepNotes.models.User;
 import com.HMCTeam.KeepNotes.repositories.UserRepository;
 import com.HMCTeam.KeepNotes.services.NoteService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 
 
 import java.util.List;
+import java.util.Optional;
 
 
 @Controller
@@ -20,7 +23,6 @@ public class AppController {
 
     @Autowired
     private UserRepository userRepository;
-
     @Autowired
     private NoteService noteService;
 
@@ -55,7 +57,9 @@ public class AppController {
 
     @GetMapping("/list_notes")
     public String viewUserNotes(Model model) {
-        List<Note> userNotes = noteService.getNotes();
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String userEmail = auth.getName();
+        List<Note> userNotes = noteService.getNotesByEmail(userEmail);
         model.addAttribute("userNotes", userNotes);
 
         return "notes";

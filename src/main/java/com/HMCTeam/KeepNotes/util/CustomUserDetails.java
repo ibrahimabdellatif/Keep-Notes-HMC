@@ -1,12 +1,14 @@
-package com.HMCTeam.KeepNotes;
+package com.HMCTeam.KeepNotes.util;
 
 import com.HMCTeam.KeepNotes.models.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.stereotype.Service;
 
 import java.util.Collection;
+
 
 public class CustomUserDetails implements UserDetails {
 
@@ -51,6 +53,7 @@ public class CustomUserDetails implements UserDetails {
     public boolean isEnabled() {
         return true;
     }
+
 
 
 }
