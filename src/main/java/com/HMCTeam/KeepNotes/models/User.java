@@ -1,6 +1,8 @@
 package com.HMCTeam.KeepNotes.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
@@ -8,6 +10,8 @@ import java.util.List;
 
 @Entity
 @Table(name = "user")
+@Data
+@NoArgsConstructor
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -32,59 +36,9 @@ public class User {
     @JsonIgnore
     private List<Note> list;
 
-    public User() {
-    }
 
     public User(User user) {
 
-    }
-
-    public List<Note> getList() {
-        return list;
-    }
-
-    public void setList(List<Note> list) {
-        this.list = list;
-    }
-
-    public Long getUserId() {
-        return userId;
-    }
-
-    public void setUserId(Long user_id) {
-        this.userId = user_id;
-    }
-
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public void setFirstName(String first_name) {
-        this.firstName = first_name;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String last_name) {
-        this.lastName = last_name;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
     }
 
 

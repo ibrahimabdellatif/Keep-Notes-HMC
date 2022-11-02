@@ -8,9 +8,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class NoteService {
@@ -20,12 +22,26 @@ public class NoteService {
 
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private AttachmentService attachmentService;
     public Note saveNote(Note note) {
         return noteRepository.save(note);
     }
 
     public List<Note> getNotes() {
-        return noteRepository.findAll();
+        List<Note> notes =  noteRepository.findAll().stream().map(
+                note -> {
+                    try {
+                        note.setListOfAttachment(attachmentService.getAttachmentByNote(note.getNoteId()));
+                    } catch (Exception e) {
+                        throw new RuntimeException(e);
+                    }
+                    return note;
+                }
+        ).collect(Collectors.toList());
+
+        return notes;
     }
 
     public Note getNoteById(Long id) throws Exception {
@@ -49,6 +65,11 @@ public class NoteService {
     public List<Note> getNotesByEmail(String email) {
         User user = userRepository.findUserByEmail(email);
         return noteRepository.findByUser(user);
+    }
+
+    public int getCount(String email){
+        User user = userRepository.findUserByEmail(email);
+        return noteRepository.countAllByUser(user);
     }
 
 

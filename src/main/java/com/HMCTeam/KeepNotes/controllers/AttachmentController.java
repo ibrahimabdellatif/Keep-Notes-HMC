@@ -1,7 +1,9 @@
 package com.HMCTeam.KeepNotes.controllers;
 import com.HMCTeam.KeepNotes.model.ResponseData;
 import com.HMCTeam.KeepNotes.models.Attachment;
-import com.HMCTeam.KeepNotes.services.AttachmentServiceImpl;
+import com.HMCTeam.KeepNotes.models.Note;
+import com.HMCTeam.KeepNotes.services.AttachmentService;
+import com.HMCTeam.KeepNotes.services.NoteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.core.io.Resource;
@@ -17,21 +19,19 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @RestController
+@RequestMapping("")
 public class AttachmentController {
 
     @Autowired
-    private AttachmentServiceImpl attachmentService;
+    private AttachmentService attachmentService;
 
 
-
-
-
-    @PostMapping("/upload")
-    public ResponseData upload(@RequestParam("file") MultipartFile file) throws Exception{
-        Attachment attachment = attachmentService.saveAttachment(file);
+    @PostMapping("/notes/{noteId}/upload")
+    public ResponseData upload(@RequestParam("file") MultipartFile file ,@PathVariable Long noteId) throws Exception{
+        Attachment attachment = attachmentService.saveAttachment(file,noteId);
         String downloadURL = getDownloadURL(attachment);
 
-        return new ResponseData(attachment.getName(),downloadURL,file.getContentType(),file.getSize());
+        return new ResponseData(attachment.getName(),downloadURL,file.getContentType(),file.getSize(),noteId);
 
     }
 
@@ -53,11 +53,22 @@ public class AttachmentController {
         List<ResponseData> attachments = attachmentService.getAllFiles().map(
                 attachment ->{
                     String downloadUri =getDownloadURL(attachment);
-                    return new ResponseData(attachment.getName(),downloadUri,attachment.getType(),attachment.getData().length);}).collect(Collectors.toList());
+                    return new ResponseData(attachment.getName(),downloadUri,attachment.getType(),attachment.getData().length,attachment.getNote().getNoteId());}).collect(Collectors.toList());
 
         return ResponseEntity.status(HttpStatus.OK).body(attachments);
     }
 
+    @GetMapping("/files/{noteId}")
+    public ResponseEntity<List<ResponseData>> getAttachmentForNote(@PathVariable Long noteId) throws Exception {
+
+        List<ResponseData> attachments =  attachmentService.getAttachmentByNote(noteId).stream().map(
+                attachment ->{
+                    String downloadUri =getDownloadURL(attachment);
+                    return new ResponseData(attachment.getName(),downloadUri,attachment.getType(),attachment.getData().length,attachment.getNote().getNoteId());}).collect(Collectors.toList());
+
+        return ResponseEntity.status(HttpStatus.OK).body(attachments);
+
+    }
 
     private static String getDownloadURL(Attachment attachment) {
         return ServletUriComponentsBuilder.fromCurrentContextPath()

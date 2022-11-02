@@ -9,5 +9,7 @@ public interface NoteRepository extends JpaRepository<Note, Long> {
 
     List<Note> findByUser(User user);
 
+    int countAllByUser(User user);
+
 
 }

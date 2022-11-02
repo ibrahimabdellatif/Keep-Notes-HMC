@@ -60,7 +60,9 @@ public class AppController {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String userEmail = auth.getName();
         List<Note> userNotes = noteService.getNotesByEmail(userEmail);
+        int noteCount = noteService.getCount(userEmail);
         model.addAttribute("userNotes", userNotes);
+        model.addAttribute("noteCount",noteCount);
 
         return "notes";
     }
