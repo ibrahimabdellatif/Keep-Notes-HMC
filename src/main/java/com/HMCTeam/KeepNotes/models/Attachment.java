@@ -1,5 +1,6 @@
 package com.HMCTeam.KeepNotes.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -20,8 +21,10 @@ public class Attachment {
 
     @ManyToOne
     @JoinColumn(name = "note_id")
+    @JsonIgnore
     private Note note;
     @Lob
+    @JsonIgnore
     private byte[] data;
 
 

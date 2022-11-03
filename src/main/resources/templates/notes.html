@@ -28,6 +28,7 @@
             <th>Title</th>
             <th>Note Content</th>
             <th>Creation Date</th>
+            <th colspan="3">attachments</th>
             </thead>
             <tbody>
             <tr th:each="note: ${userNotes}">
@@ -35,6 +36,9 @@
                 <td th:text="${note.title}">Title</td>
                 <td th:text="${note.content}">Content</td>
                 <td th:text="${note.creationDate}">Creation date</td>
+                <td  th:each = "attachment: ${note.attachments}">
+                    <span th:text="${attachment.name}">Name of attachment</span>
+                </td>
             </tr>
             </tbody>
         </table>

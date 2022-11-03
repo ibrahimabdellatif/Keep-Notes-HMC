@@ -1,5 +1,6 @@
 package com.HMCTeam.KeepNotes.services;
 
+import com.HMCTeam.KeepNotes.model.ResponseData;
 import com.HMCTeam.KeepNotes.models.Note;
 import com.HMCTeam.KeepNotes.models.User;
 import com.HMCTeam.KeepNotes.repositories.NoteRepository;
@@ -23,25 +24,13 @@ public class NoteService {
     @Autowired
     private UserRepository userRepository;
 
-    @Autowired
-    private AttachmentService attachmentService;
+
     public Note saveNote(Note note) {
         return noteRepository.save(note);
     }
 
     public List<Note> getNotes() {
-        List<Note> notes =  noteRepository.findAll().stream().map(
-                note -> {
-                    try {
-                        note.setListOfAttachment(attachmentService.getAttachmentByNote(note.getNoteId()));
-                    } catch (Exception e) {
-                        throw new RuntimeException(e);
-                    }
-                    return note;
-                }
-        ).collect(Collectors.toList());
-
-        return notes;
+        return  noteRepository.findAll();
     }
 
     public Note getNoteById(Long id) throws Exception {

@@ -39,7 +39,7 @@ public class UserRepositoryTest {
 
     @Test
     public void testUserByEmail(){
-        String email = "helloKeep@gmail.com";
+        String email = "h@gmail.com";
         User user = userRepository.findUserByEmail(email);
 
         assertThat(user).isNotNull();
