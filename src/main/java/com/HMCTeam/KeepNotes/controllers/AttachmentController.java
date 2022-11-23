@@ -30,7 +30,7 @@ public class AttachmentController {
     public ResponseData upload(@RequestParam("file") MultipartFile file ,@PathVariable Long noteId) throws Exception{
         Attachment attachment = attachmentService.saveAttachment(file,noteId);
         String downloadURL = getDownloadURL(attachment);
-
+        //store mete data instead of storing in DB
         return new ResponseData(attachment.getName(),downloadURL,file.getContentType(),file.getSize(),noteId);
 
     }

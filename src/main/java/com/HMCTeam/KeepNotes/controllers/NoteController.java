@@ -28,6 +28,7 @@ public class NoteController {
     public Note saveNote(@Valid @RequestBody Note note ,@PathVariable Long userId) {
         User user = userRepository.findById(userId).orElseThrow(()-> new UsernameNotFoundException("User Not found"));
         note.setUser(user);
+        //validate if note exist
         return noteService.saveNote(note);
     }
 
